@@ -26,3 +26,8 @@ Inspiración fuerte en branding, uso de colores suaves y una experiencia muy cen
 Elegido por su catálogo atractivo de suculentas, su fotografía de producto de alta calidad y su estilo visual joven y moderno.
 5. Viveros El Botánico (viveroelbotanico.com.ar)
 Un referente local que inspira por su autenticidad, cercanía y espíritu de pequeño emprendimiento especializado. Ayuda a conectar la propuesta del sitio con un estilo más artesanal y regional
+
+## Tablero de trabajo
+Podés ver el board del proyecto acá:
+👉 https://github.com/users/lucaspelassini/projects/1/views/1
+
