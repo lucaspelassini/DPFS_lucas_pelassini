@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - Botánica.com</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/cart.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="header-left">
+        <div class="logo">LOGO</div>
+        <h1 class="brand">Botánica.com</h1>
+    </div>
+
+    <nav class="nav">
+        <a href="./index.html">Home</a>
+        <a href="./productDetail.html">Productos</a>
+        <a href="./productCart.html">Carrito</a>
+        <a href="./login.html">Login</a>
+        <a href="./register.html">Register</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2 class="cart-title">Carrito de Compras:</h2>
+
+    <div class="cart-layout">
+        <div class="cart-items">
+            <div class="cart-item">
+                <div class="img-box"><img src="../assets/img/plantas2.jpg" alt="Vista 1"></div>
+                <div class="item-info">
+                    <h3>Nombre Producto 1</h3>
+                    <p class="price">$45.99</p>
+                </div>
+                <div class="quantity-box">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                </div>
+                <p class="item-subtotal">$45.99</p>
+            </div>
+
+            <div class="cart-item">
+                <div class="img-box"><img src="../assets/img/plantas2.jpg" alt="Vista 1"></div>
+                <div class="item-info">
+                    <h3>Nombre Producto 2</h3>
+                    <p class="price">$22.50</p>
+                </div>
+                <div class="quantity-box">
+                    <button>-</button>
+                    <span>2</span>
+                    <button>+</button>
+                </div>
+                <p class="item-subtotal">$45.00</p>
+            </div>
+
+            <div class="cart-item">
+                <div class="img-box"><img src="../assets/img/plantas2.jpg" alt="Vista 1"></div>
+                <div class="item-info">
+                    <h3>Nombre Producto 3</h3>
+                    <p class="price">$32.00</p>
+                </div>
+                <div class="quantity-box">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                </div>
+                <p class="item-subtotal">$32.00</p>
+            </div>
+        </div>
+
+        <aside class="summary">
+            <h3>Resumen del pedido:</h3>
+
+            <div class="summary-line">
+                <span>Subtotal:</span>
+                <span>$122.99</span>
+            </div>
+
+            <div class="summary-line">
+                <span>Envío:</span>
+                <span>$12.51</span>
+            </div>
+
+            <hr>
+
+            <div class="summary-total">
+                <span>Total:</span>
+                <span class="total-price">$135.50</span>
+            </div>
+
+            <button class="btn-main">Proceder al pago</button>
+            <a class="btn-secondary" href="./login.html">Iniciar Sesión</a>
+        </aside>
+    </div>
+</div>
+
+</body>
+</html>

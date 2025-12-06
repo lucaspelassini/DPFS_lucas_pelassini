@@ -1,0 +1,70 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px);
+    padding: 40px 20px;
+}
+
+.register-box {
+    width: 100%;
+    max-width: 600px;
+    background: #e8ede8;
+    padding: 50px 60px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.register-box h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.bienvenida {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    background: white;
+}
+
+.form-group input:focus {
+    outline: 2px solid #6b9080;
+}
+
+.register-box .btn-main {
+    width: 60%;
+    padding: 16px;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .register-box {
+        padding: 40px 30px;
+    }
+
+    .register-box .btn-main {
+        width: 80%;
+    }
+}
