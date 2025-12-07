@@ -25,3 +25,9 @@
 - No concetrar esfuerzos.
 - No leer a fondo las consignas.
 
+## Sprint 2
+- Hicimos bien: se cumplió con la consigna. Entrega forma.
+- Hicimos mal: falta de cordinación entre css y html.
+- Lo que debería mejorar: los tiempos de la emntrega.
+- Deberíamos empezar a hacer: Más rutina a la hora de trabajar. Más estudio de codigo html y css.
+- Deberíamos dejar de hacer: perder tiempo en detalles que no pide la consigna.
