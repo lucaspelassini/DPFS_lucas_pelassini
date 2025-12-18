@@ -1,0 +1,136 @@
+.form-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #e8ede8;
+    padding: 50px 60px;
+    border-radius: 12px;
+}
+
+.form-container h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+.form-subtitle {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+    font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="number"],
+.form-group input[type="file"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    background: white;
+    font-family: inherit;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: 2px solid #6b9080;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 8px;
+    color: #666;
+    font-size: 14px;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 35px;
+}
+
+.form-buttons .btn-main,
+.form-buttons .btn-secondary {
+    flex: 1;
+    padding: 16px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.delete-form {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid #ddd;
+}
+
+.btn-delete {
+    width: 100%;
+    padding: 16px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+}
+
+.register-link,
+.login-link {
+    margin-top: 25px;
+    text-align: center;
+    color: #333;
+}
+
+.register-link a,
+.login-link a {
+    color: #6b9080;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link a:hover,
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        padding: 40px 30px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+}

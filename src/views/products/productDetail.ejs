@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('../partials/head', { title: 'Productos - Botánica.com', stylesheet: 'products' }) %>
+
+<body>
+
+<%- include('../partials/header') %>
+
+<div class="container">
+    <section class="detail-container">
+    
+        <div class="images-column">
+            <div class="main-image">
+                <img src="/img/plantas2.jpg" alt="Producto"> 
+            </div>
+
+            <div class="thumbnails">
+                <div class="thumb"><img src="/img/plantas2.jpg" alt="Vista 1"></div>
+                <div class="thumb"><img src="/img/plantas2.jpg" alt="Vista 1"></div>
+                <div class="thumb"><img src="/img/plantas2.jpg" alt="Vista 1"></div>
+            </div>
+        </div>
+
+        <div class="detail-info">
+            <h2>Nombre del producto</h2>
+            <p class="price">$09.12</p>
+
+            <h4>Descripción:</h4>
+            <div class="description-lines">
+                <hr>
+                <hr>
+                <hr>
+            </div>
+
+            <h4>Cantidad:</h4>
+            <div class="quantity-box">
+                <button>-</button>
+                <span>1</span>
+                <button>+</button>
+            </div>
+
+            <button class="btn-main">Agregar al Carrito</button>
+        </div>
+
+    </section>
+</div>
+
+<%- include('../partials/footer') %>
+
+</body>
+</html>

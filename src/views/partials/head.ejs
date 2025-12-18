@@ -1,0 +1,11 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'Botánica.com' %></title>
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    <% if (typeof stylesheet !== 'undefined') { %>
+        <link rel="stylesheet" href="/css/<%= stylesheet %>.css">
+    <% } %>
+</head>
