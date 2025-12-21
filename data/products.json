@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "Monstera Deliciosa",
+    "description": "Planta tropical de hojas grandes y perforadas, ideal para interiores luminosos",
+    "image": "monstera.jpg",
+    "category": "plantas",
+    "colors": ["Verde"],
+    "price": 45.99
+  },
+  {
+    "id": 2,
+    "name": "Pothos Dorado",
+    "description": "Planta colgante de fácil cuidado, perfecta para principiantes",
+    "image": "pothos.jpg",
+    "category": "plantas",
+    "colors": ["Verde", "Amarillo"],
+    "price": 22.50
+  },
+  {
+    "id": 3,
+    "name": "Suculenta Mix",
+    "description": "Conjunto de 3 suculentas variadas en maceta de cerámica",
+    "image": "suculentas.jpg",
+    "category": "plantas",
+    "colors": ["Verde", "Gris"],
+    "price": 32.00
+  },
+  {
+    "id": 4,
+    "name": "Ficus Lyrata",
+    "description": "Árbol de interior con hojas en forma de violín, elegante y moderno",
+    "image": "ficus.jpg",
+    "category": "plantas",
+    "colors": ["Verde"],
+    "price": 89.99
+  },
+  {
+    "id": 5,
+    "name": "Cactus San Pedro",
+    "description": "Cactus columnar de crecimiento rápido, resistente y decorativo",
+    "image": "cactus.jpg",
+    "category": "plantas",
+    "colors": ["Verde"],
+    "price": 28.50
+  },
+  {
+    "id": 6,
+    "name": "Lavanda",
+    "description": "Planta aromática con flores violetas, ideal para exteriores",
+    "image": "lavanda.jpg",
+    "category": "plantas",
+    "colors": ["Violeta"],
+    "price": 18.99
+  },
+  {
+    "id": 7,
+    "name": "Maceta Terracota Grande",
+    "description": "Maceta de barro cocido de 30cm de diámetro con plato incluido",
+    "image": "maceta-terracota.jpg",
+    "category": "macetas",
+    "colors": ["Naranja"],
+    "price": 24.99
+  },
+  {
+    "id": 8,
+    "name": "Kit de Herramientas",
+    "description": "Set completo de 5 herramientas para jardinería: pala, rastrillo, tijeras",
+    "image": "herramientas.jpg",
+    "category": "herramientas",
+    "colors": ["Negro", "Verde"],
+    "price": 42.00
+  },
+  {
+    "id": 9,
+    "name": "Fertilizante Orgánico",
+    "description": "Abono natural de 1kg para todo tipo de plantas",
+    "image": "fertilizante.jpg",
+    "category": "fertilizantes",
+    "colors": ["Marrón"],
+    "price": 15.50
+  },
+  {
+    "id": 10,
+    "name": "Semillas de Tomate",
+    "description": "Paquete de semillas orgánicas de tomate cherry",
+    "image": "semillas-tomate.jpg",
+    "category": "semillas",
+    "colors": ["Rojo"],
+    "price": 8.99
+  }
+]

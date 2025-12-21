@@ -11,71 +11,18 @@
     <h2 class="page-title">Nuestros Productos</h2>
 
     <div class="products-grid">
-        <article class="product-card">
-            <div class="product-image">
-                <img src="/img/plantas2.jpg" alt="Producto 1">
-            </div>
-            <div class="product-info">
-                <h3>Nombre Producto 1</h3>
-                <p class="price">$45.99</p>
-                <a href="/products/1" class="btn-main">Ver Detalle</a>
-            </div>
-        </article>
-
-        <article class="product-card">
-            <div class="product-image">
-                <img src="/img/plantas2.jpg" alt="Producto 2">
-            </div>
-            <div class="product-info">
-                <h3>Nombre Producto 2</h3>
-                <p class="price">$22.50</p>
-                <a href="/products/2" class="btn-main">Ver Detalle</a>
-            </div>
-        </article>
-
-        <article class="product-card">
-            <div class="product-image">
-                <img src="/img/plantas2.jpg" alt="Producto 3">
-            </div>
-            <div class="product-info">
-                <h3>Nombre Producto 3</h3>
-                <p class="price">$32.00</p>
-                <a href="/products/3" class="btn-main">Ver Detalle</a>
-            </div>
-        </article>
-
-        <article class="product-card">
-            <div class="product-image">
-                <img src="/img/plantas2.jpg" alt="Producto 4">
-            </div>
-            <div class="product-info">
-                <h3>Nombre Producto 4</h3>
-                <p class="price">$18.99</p>
-                <a href="/products/4" class="btn-main">Ver Detalle</a>
-            </div>
-        </article>
-
-        <article class="product-card">
-            <div class="product-image">
-                <img src="/img/plantas2.jpg" alt="Producto 5">
-            </div>
-            <div class="product-info">
-                <h3>Nombre Producto 5</h3>
-                <p class="price">$55.00</p>
-                <a href="/products/5" class="btn-main">Ver Detalle</a>
-            </div>
-        </article>
-        
-        <article class="product-card">
-            <div class="product-image">
-                <img src="/img/plantas2.jpg" alt="Producto 6">
-            </div>
-            <div class="product-info">
-                <h3>Nombre Producto 6</h3>
-                <p class="price">$28.50</p>
-                <a href="/products/6" class="btn-main">Ver Detalle</a>
-            </div>
-        </article>
+        <% products.forEach(product => { %>
+            <article class="product-card">
+                <div class="product-image">
+                    <img src="/img/<%= product.image %>" alt="<%= product.name %>">
+                </div>
+                <div class="product-info">
+                    <h3><%= product.name %></h3>
+                    <p class="price">$<%= product.price.toFixed(2) %></p>
+                    <a href="/products/<%= product.id %>" class="btn-main">Ver Detalle</a>
+                </div>
+            </article>
+        <% }); %>
     </div>
 </div>
 

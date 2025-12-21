@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "firstName": "Juan",
+    "lastName": "Pérez",
+    "email": "juan.perez@example.com",
+    "password": "$2a$10$abcdefghijklmnopqrstuvwxyz123456",
+    "category": "user",
+    "image": "default-avatar.jpg"
+  },
+  {
+    "id": 2,
+    "firstName": "María",
+    "lastName": "González",
+    "email": "maria.gonzalez@example.com",
+    "password": "$2a$10$abcdefghijklmnopqrstuvwxyz123456",
+    "category": "user",
+    "image": "default-avatar.jpg"
+  },
+  {
+    "id": 3,
+    "firstName": "Carlos",
+    "lastName": "Rodríguez",
+    "email": "carlos.rodriguez@example.com",
+    "password": "$2a$10$abcdefghijklmnopqrstuvwxyz123456",
+    "category": "admin",
+    "image": "default-avatar.jpg"
+  },
+  {
+    "id": 4,
+    "firstName": "Ana",
+    "lastName": "Martínez",
+    "email": "ana.martinez@example.com",
+    "password": "$2a$10$abcdefghijklmnopqrstuvwxyz123456",
+    "category": "user",
+    "image": "default-avatar.jpg"
+  },
+  {
+    "id": 5,
+    "firstName": "Luis",
+    "lastName": "López",
+    "email": "luis.lopez@example.com",
+    "password": "$2a$10$abcdefghijklmnopqrstuvwxyz123456",
+    "category": "user",
+    "image": "default-avatar.jpg"
+  }
+]

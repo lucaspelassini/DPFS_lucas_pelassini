@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<%- include('../partials/head', { title: 'Productos - Botánica.com', stylesheet: 'products' }) %>
+<%- include('../partials/head', { title: product.name + ' - Botánica.com', stylesheet: 'detail' }) %>
 
 <body>
 
@@ -9,38 +9,41 @@
 
 <div class="container">
     <section class="detail-container">
-    
+        
         <div class="images-column">
             <div class="main-image">
-                <img src="/img/plantas2.jpg" alt="Producto"> 
-            </div>
-
-            <div class="thumbnails">
-                <div class="thumb"><img src="/img/plantas2.jpg" alt="Vista 1"></div>
-                <div class="thumb"><img src="/img/plantas2.jpg" alt="Vista 1"></div>
-                <div class="thumb"><img src="/img/plantas2.jpg" alt="Vista 1"></div>
+                <img src="/img/<%= product.image %>" alt="<%= product.name %>">
             </div>
         </div>
 
         <div class="detail-info">
-            <h2>Nombre del producto</h2>
-            <p class="price">$09.12</p>
+            <h2><%= product.name %></h2>
+            <p class="price">$<%= product.price.toFixed(2) %></p>
 
             <h4>Descripción:</h4>
-            <div class="description-lines">
-                <hr>
-                <hr>
-                <hr>
-            </div>
+            <p class="description-text"><%= product.description %></p>
+
+            <h4>Categoría:</h4>
+            <p><%= product.category %></p>
+
+            <% if (product.colors && product.colors.length > 0) { %>
+                <h4>Colores disponibles:</h4>
+                <p><%= product.colors.join(', ') %></p>
+            <% } %>
 
             <h4>Cantidad:</h4>
             <div class="quantity-box">
-                <button>-</button>
+                <button type="button">-</button>
                 <span>1</span>
-                <button>+</button>
+                <button type="button">+</button>
             </div>
 
-            <button class="btn-main">Agregar al Carrito</button>
+            <button type="button" class="btn-main">Agregar al Carrito</button>
+            
+            <!-- Botón de editar -->
+            <div class="admin-actions" style="margin-top: 20px;">
+                <a href="/products/<%= product.id %>/edit" class="btn-secondary">Editar Producto</a>
+            </div>
         </div>
 
     </section>
