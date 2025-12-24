@@ -12,10 +12,15 @@
         <h2>Crear Cuenta</h2>
         <p class="bienvenida">Únete a Botánica.com</p>
 
-        <form action="/register" method="POST">
+        <form action="/users/register" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="nombre">Nombre Completo *</label>
-                <input type="text" id="nombre" name="nombre" required />
+                <label for="firstName">Nombre *</label>
+                <input type="text" id="firstName" name="firstName" required />
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Apellido *</label>
+                <input type="text" id="lastName" name="lastName" required />
             </div>
 
             <div class="form-group">
@@ -24,8 +29,8 @@
             </div>
 
             <div class="form-group">
-                <label for="telefono">Teléfono *</label>
-                <input type="tel" id="telefono" name="telefono" required />
+                <label for="image">Imagen de Perfil</label>
+                <input type="file" id="image" name="image" accept="image/*" />
             </div>
 
             <div class="form-group">
@@ -40,6 +45,10 @@
 
             <button type="submit" class="btn-main">Crear Cuenta</button>
         </form>
+
+        <p class="login-link">
+            ¿Ya tienes cuenta? <a href="/users/login">Inicia sesión aquí</a>
+        </p>
     </div>
 </main>
 

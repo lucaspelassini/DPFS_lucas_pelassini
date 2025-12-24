@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('../partials/head', { title: 'Perfil - Botánica.com', stylesheet: 'profile' }) %>
+
+<body>
+
+<%- include('../partials/header') %>
+
+<div class="container">
+    <div class="profile-container">
+        <h2>Mi Perfil</h2>
+
+        <div class="profile-card">
+            <div class="profile-image">
+    <% if (user.image === 'default-avatar.jpg') { %>
+        <img src="https://ui-avatars.com/api/?name=<%= user.firstName %>+<%= user.lastName %>&size=150&background=6b9080&color=fff" alt="<%= user.firstName %>">
+    <% } else { %>
+        <img src="/img/users/<%= user.image %>" alt="<%= user.firstName %>">
+    <% } %>
+            </div>
+
+            <div class="profile-info">
+                <h3><%= user.firstName %> <%= user.lastName %></h3>
+                <p class="email"><%= user.email %></p>
+                <p class="category">Tipo de cuenta: <%= user.category %></p>
+
+                <a href="/users/logout" class="btn-main">Cerrar Sesión</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
+
+</body>
+</html>

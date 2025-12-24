@@ -5,7 +5,9 @@
     "description": "Planta tropical de hojas grandes y perforadas, ideal para interiores luminosos",
     "image": "monstera.jpg",
     "category": "plantas",
-    "colors": ["Verde"],
+    "colors": [
+      "Verde"
+    ],
     "price": 45.99
   },
   {
@@ -14,8 +16,11 @@
     "description": "Planta colgante de fácil cuidado, perfecta para principiantes",
     "image": "pothos.jpg",
     "category": "plantas",
-    "colors": ["Verde", "Amarillo"],
-    "price": 22.50
+    "colors": [
+      "Verde",
+      "Amarillo"
+    ],
+    "price": 22.5
   },
   {
     "id": 3,
@@ -23,8 +28,11 @@
     "description": "Conjunto de 3 suculentas variadas en maceta de cerámica",
     "image": "suculentas.jpg",
     "category": "plantas",
-    "colors": ["Verde", "Gris"],
-    "price": 32.00
+    "colors": [
+      "Verde",
+      "Gris"
+    ],
+    "price": 32
   },
   {
     "id": 4,
@@ -32,7 +40,9 @@
     "description": "Árbol de interior con hojas en forma de violín, elegante y moderno",
     "image": "ficus.jpg",
     "category": "plantas",
-    "colors": ["Verde"],
+    "colors": [
+      "Verde"
+    ],
     "price": 89.99
   },
   {
@@ -41,8 +51,10 @@
     "description": "Cactus columnar de crecimiento rápido, resistente y decorativo",
     "image": "cactus.jpg",
     "category": "plantas",
-    "colors": ["Verde"],
-    "price": 28.50
+    "colors": [
+      "Verde"
+    ],
+    "price": 28.5
   },
   {
     "id": 6,
@@ -50,7 +62,9 @@
     "description": "Planta aromática con flores violetas, ideal para exteriores",
     "image": "lavanda.jpg",
     "category": "plantas",
-    "colors": ["Violeta"],
+    "colors": [
+      "Violeta"
+    ],
     "price": 18.99
   },
   {
@@ -59,7 +73,9 @@
     "description": "Maceta de barro cocido de 30cm de diámetro con plato incluido",
     "image": "maceta-terracota.jpg",
     "category": "macetas",
-    "colors": ["Naranja"],
+    "colors": [
+      "Naranja"
+    ],
     "price": 24.99
   },
   {
@@ -68,8 +84,11 @@
     "description": "Set completo de 5 herramientas para jardinería: pala, rastrillo, tijeras",
     "image": "herramientas.jpg",
     "category": "herramientas",
-    "colors": ["Negro", "Verde"],
-    "price": 42.00
+    "colors": [
+      "Negro",
+      "Verde"
+    ],
+    "price": 42
   },
   {
     "id": 9,
@@ -77,8 +96,10 @@
     "description": "Abono natural de 1kg para todo tipo de plantas",
     "image": "fertilizante.jpg",
     "category": "fertilizantes",
-    "colors": ["Marrón"],
-    "price": 15.50
+    "colors": [
+      "Marrón"
+    ],
+    "price": 15.5
   },
   {
     "id": 10,
@@ -86,7 +107,9 @@
     "description": "Paquete de semillas orgánicas de tomate cherry",
     "image": "semillas-tomate.jpg",
     "category": "semillas",
-    "colors": ["Rojo"],
+    "colors": [
+      "Rojo"
+    ],
     "price": 8.99
   }
 ]

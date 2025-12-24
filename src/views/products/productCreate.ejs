@@ -1,45 +1,66 @@
-<form action="/products" method="POST" enctype="multipart/form-data">
-    
-    <div class="form-group">
-        <label for="name">Nombre del Producto *</label>
-        <input type="text" id="name" name="name" required>
-    </div>
+<!DOCTYPE html>
+<html lang="es">
 
-    <div class="form-group">
-        <label for="description">Descripción *</label>
-        <textarea id="description" name="description" rows="5" required></textarea>
-    </div>
+<%- include('../partials/head', { title: 'Crear Producto - Botánica.com', stylesheet: 'forms' }) %>
 
-    <div class="form-group">
-        <label for="image">Imagen del Producto</label>
-        <input type="file" id="image" name="image" accept="image/*">
-        <small>Si no subes imagen, se usará una por defecto</small>
-    </div>
+<body>
 
-    <div class="form-group">
-        <label for="category">Categoría *</label>
-        <select id="category" name="category" required>
-            <option value="">Seleccionar categoría</option>
-            <option value="plantas">Plantas</option>
-            <option value="macetas">Macetas</option>
-            <option value="herramientas">Herramientas</option>
-            <option value="fertilizantes">Fertilizantes</option>
-            <option value="semillas">Semillas</option>
-        </select>
-    </div>
+<%- include('../partials/header') %>
 
-    <div class="form-group">
-        <label for="colors">Colores disponibles</label>
-        <input type="text" id="colors" name="colors" placeholder="Ej: Verde, Rojo, Amarillo (separados por comas)">
-    </div>
+<div class="container">
+    <div class="form-container">
+        <h2>Crear Nuevo Producto</h2>
+        <p class="form-subtitle">Completa los datos del producto</p>
 
-    <div class="form-group">
-        <label for="price">Precio *</label>
-        <input type="number" id="price" name="price" step="0.01" min="0" required>
-    </div>
+        <form action="/products" method="POST" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="name">Nombre del Producto *</label>
+                <input type="text" id="name" name="name" required>
+            </div>
 
-    <div class="form-buttons">
-        <button type="submit" class="btn-main">Crear Producto</button>
-        <a href="/products" class="btn-secondary">Cancelar</a>
+            <div class="form-group">
+                <label for="description">Descripción *</label>
+                <textarea id="description" name="description" rows="5" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Imagen del Producto</label>
+                <input type="file" id="image" name="image" accept="image/*">
+                <small>Si no subes imagen, se usará una por defecto</small>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Categoría *</label>
+                <select id="category" name="category" required>
+                    <option value="">Seleccionar categoría</option>
+                    <option value="plantas">Plantas</option>
+                    <option value="macetas">Macetas</option>
+                    <option value="herramientas">Herramientas</option>
+                    <option value="fertilizantes">Fertilizantes</option>
+                    <option value="semillas">Semillas</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="colors">Colores disponibles</label>
+                <input type="text" id="colors" name="colors" placeholder="Ej: Verde, Rojo, Amarillo (separados por comas)">
+            </div>
+
+            <div class="form-group">
+                <label for="price">Precio *</label>
+                <input type="number" id="price" name="price" step="0.01" min="0" required>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn-main">Crear Producto</button>
+                <a href="/products" class="btn-secondary">Cancelar</a>
+            </div>
+        </form>
     </div>
-</form>
+</div>
+
+<%- include('../partials/footer') %>
+
+</body>
+</html>

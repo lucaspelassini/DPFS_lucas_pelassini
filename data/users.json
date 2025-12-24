@@ -43,5 +43,23 @@
     "password": "$2a$10$abcdefghijklmnopqrstuvwxyz123456",
     "category": "user",
     "image": "default-avatar.jpg"
+  },
+  {
+    "id": 6,
+    "firstName": "Lucas",
+    "lastName": "Pelassini",
+    "email": "lucaspelassini@gmail.com",
+    "password": "$2b$10$iq/RqTATim6TnKbDSMFSDOK7fCxcibwyC8vm6sKvLL2OQEN0bjERW",
+    "category": "user",
+    "image": "user-1766441572602.jpg"
+  },
+  {
+    "id": 7,
+    "firstName": "Meulen ",
+    "lastName": "Recofsky",
+    "email": "recofskymeulen@gmail.com",
+    "password": "$2b$10$7GFPBJKqzO8/Sy5Vc5ZqFO9hmMw79tDeF75k2.pNbMJ88MRJVlZ82",
+    "category": "user",
+    "image": "default-avatar.jpg"
   }
 ]

@@ -10,7 +10,13 @@
         <a href="/">Home</a>
         <a href="/products">Productos</a>
         <a href="/products/cart">Carrito</a>
-        <a href="/users/login">Login</a>
-        <a href="/users/register">Register</a>
+        
+        <% if (locals.isLogged) { %>
+            <a href="/users/profile">Hola, <%= userLogged.firstName %></a>
+            <a href="/users/logout">Cerrar Sesión</a>
+        <% } else { %>
+            <a href="/users/login">Login</a>
+            <a href="/users/register">Registro</a>
+        <% } %>
     </nav>
 </header>

@@ -40,10 +40,11 @@
 
             <button type="button" class="btn-main">Agregar al Carrito</button>
             
-            <!-- Botón de editar -->
+        <% if (locals.isLogged) { %>
             <div class="admin-actions" style="margin-top: 20px;">
                 <a href="/products/<%= product.id %>/edit" class="btn-secondary">Editar Producto</a>
             </div>
+        <% } %>
         </div>
 
     </section>

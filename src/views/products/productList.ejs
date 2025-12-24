@@ -10,6 +10,11 @@
 <div class="container">
     <h2 class="page-title">Nuestros Productos</h2>
 
+    <% if (locals.isLogged) { %>
+            <a href="/products/create" class="btn-main">Crear Producto</a>
+        <% } %>
+    </div>
+
     <div class="products-grid">
         <% products.forEach(product => { %>
             <article class="product-card">
