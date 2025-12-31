@@ -31,16 +31,19 @@
             </div>
 
             <div class="form-group">
-                <label for="category">Categoría *</label>
-                <select id="category" name="category" required>
-                    <option value="">Seleccionar categoría</option>
-                    <option value="plantas">Plantas</option>
-                    <option value="macetas">Macetas</option>
-                    <option value="herramientas">Herramientas</option>
-                    <option value="fertilizantes">Fertilizantes</option>
-                    <option value="semillas">Semillas</option>
-                </select>
-            </div>
+    <label for="category">Categoría *</label>
+    <select id="category" name="category" required>
+        <option value="">Seleccionar categoría</option>
+        <% categories.forEach(cat => { %>
+            <option value="<%= cat.id %>"><%= cat.name %></option>
+        <% }); %>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="stock">Stock</label>
+    <input type="number" id="stock" name="stock" min="0" value="0">
+</div>
 
             <div class="form-group">
                 <label for="colors">Colores disponibles</label>

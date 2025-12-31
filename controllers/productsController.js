@@ -1,41 +1,49 @@
-const fs = require('fs');
-const path = require('path');
-
-const productsFilePath = path.join(__dirname, '../data/products.json');
-
-const getProducts = () => {
-    const productsJSON = fs.readFileSync(productsFilePath, 'utf-8');
-    return JSON.parse(productsJSON);
-};
-
-const saveProducts = (products) => {
-    const productsJSON = JSON.stringify(products, null, 2);
-    fs.writeFileSync(productsFilePath, productsJSON);
-};
+const { Product, Category, ProductColor } = require('../models');
+const { Op } = require('sequelize');
 
 const productsController = {
-    list: (req, res) => {
-        const products = getProducts();
-        res.render('products/productList', { 
-            title: 'Productos - Botánica.com',
-            stylesheet: 'products',
-            products: products
-        });
+    list: async (req, res) => {
+        try {
+            const products = await Product.findAll({
+                include: [
+                    { association: 'category' },
+                    { association: 'colors' }
+                ]
+            });
+            
+            res.render('products/productList', { 
+                title: 'Productos - Botánica.com',
+                stylesheet: 'products',
+                products: products
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al obtener productos');
+        }
     },
 
-    detail: (req, res) => {
-        const products = getProducts();
-        const productId = parseInt(req.params.id);
-        const product = products.find(p => p.id === productId);
-        
-        if (product) {
-            res.render('products/productDetail', { 
-                title: 'Detalle Producto - Botánica.com',
-                stylesheet: 'detail',
-                product: product
+    detail: async (req, res) => {
+        try {
+            const productId = req.params.id;
+            const product = await Product.findByPk(productId, {
+                include: [
+                    { association: 'category' },
+                    { association: 'colors' }
+                ]
             });
-        } else {
-            res.status(404).send('Producto no encontrado');
+            
+            if (product) {
+                res.render('products/productDetail', { 
+                    title: 'Detalle Producto - Botánica.com',
+                    stylesheet: 'detail',
+                    product: product
+                });
+            } else {
+                res.status(404).send('Producto no encontrado');
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al obtener el producto');
         }
     },
 
@@ -46,95 +54,154 @@ const productsController = {
         });
     },
 
-    create: (req, res) => {
-        res.render('products/productCreate', { 
-            title: 'Crear Producto - Botánica.com',
-            stylesheet: 'forms'
-        });
-    },
-
-    store: (req, res) => {
-        const products = getProducts();
-        
-        const newId = products.length > 0 
-            ? Math.max(...products.map(p => p.id)) + 1 
-            : 1;
-        
-        const newProduct = {
-            id: newId,
-            name: req.body.name,
-            description: req.body.description,
-            image: req.file ? req.file.filename : 'default.jpg',
-            category: req.body.category,
-            colors: req.body.colors ? req.body.colors.split(',').map(c => c.trim()) : [],
-            price: parseFloat(req.body.price)
-        };
-        
-        products.push(newProduct);
-        
-        saveProducts(products);
-        
-        res.redirect('/products');
-    },
-
-    edit: (req, res) => {
-        const products = getProducts();
-        const productId = parseInt(req.params.id);
-        const product = products.find(p => p.id === productId);
-        
-        if (product) {
-            res.render('products/productEdit', { 
-                title: 'Editar Producto - Botánica.com',
+    create: async (req, res) => {
+        try {
+            const categories = await Category.findAll();
+            
+            res.render('products/productCreate', { 
+                title: 'Crear Producto - Botánica.com',
                 stylesheet: 'forms',
-                product: product
+                categories: categories
             });
-        } else {
-            res.status(404).send('Producto no encontrado');
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al cargar el formulario');
         }
     },
 
-    // Procesar edición (PUT - UPDATE)
-update: (req, res) => {
-    // AGREGAR ESTOS CONSOLE.LOG PARA DEBUGGEAR
-    console.log('=== DEBUG UPDATE ===');
-    console.log('req.params.id:', req.params.id);
-    console.log('req.body:', req.body);
-    console.log('req.file:', req.file);
-    console.log('===================');
-    
-    const products = getProducts();
-    const productId = parseInt(req.params.id);
-    const productIndex = products.findIndex(p => p.id === productId);
-    
-    if (productIndex !== -1) {
-        // Actualizar producto
-        products[productIndex] = {
-            id: productId,
-            name: req.body.name,
-            description: req.body.description,
-            image: req.file ? req.file.filename : products[productIndex].image,
-            category: req.body.category,
-            colors: req.body.colors ? req.body.colors.split(',').map(c => c.trim()) : [],
-            price: parseFloat(req.body.price)
-        };
-        
-        // Guardar en JSON
-        saveProducts(products);
-        
-        res.redirect('/products/' + productId);
-    } else {
-        res.status(404).send('Producto no encontrado');
-    }
-},
+    store: async (req, res) => {
+        try {
+            const newProduct = await Product.create({
+                name: req.body.name,
+                description: req.body.description,
+                price: parseFloat(req.body.price),
+                categoryId: parseInt(req.body.category),
+                image: req.file ? req.file.filename : 'default-product.jpg',
+                stock: parseInt(req.body.stock) || 0
+            });
 
-    destroy: (req, res) => {
-        const products = getProducts();
-        const productId = parseInt(req.params.id);
-        const filteredProducts = products.filter(p => p.id !== productId);
-        
-        saveProducts(filteredProducts);
-        
-        res.redirect('/products');
+            if (req.body.colors) {
+                const colorsArray = req.body.colors.split(',').map(c => c.trim());
+                
+                for (const color of colorsArray) {
+                    await ProductColor.create({
+                        productId: newProduct.id,
+                        color: color
+                    });
+                }
+            }
+
+            res.redirect('/products');
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al crear el producto');
+        }
+    },
+
+    edit: async (req, res) => {
+        try {
+            const productId = req.params.id;
+            const product = await Product.findByPk(productId, {
+                include: [
+                    { association: 'category' },
+                    { association: 'colors' }
+                ]
+            });
+            
+            const categories = await Category.findAll();
+            
+            if (product) {
+                res.render('products/productEdit', { 
+                    title: 'Editar Producto - Botánica.com',
+                    stylesheet: 'forms',
+                    product: product,
+                    categories: categories
+                });
+            } else {
+                res.status(404).send('Producto no encontrado');
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al cargar el producto');
+        }
+    },
+
+    update: async (req, res) => {
+        try {
+            const productId = req.params.id;
+            
+            await Product.update({
+                name: req.body.name,
+                description: req.body.description,
+                price: parseFloat(req.body.price),
+                categoryId: parseInt(req.body.category),
+                stock: parseInt(req.body.stock) || 0
+            }, {
+                where: { id: productId }
+            });
+
+            if (req.body.colors) {
+                await ProductColor.destroy({
+                    where: { productId: productId }
+                });
+
+                const colorsArray = req.body.colors.split(',').map(c => c.trim());
+                
+                for (const color of colorsArray) {
+                    await ProductColor.create({
+                        productId: productId,
+                        color: color
+                    });
+                }
+            }
+
+            res.redirect('/products/' + productId);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al actualizar el producto');
+        }
+    },
+
+    destroy: async (req, res) => {
+        try {
+            const productId = req.params.id;
+            
+            await Product.destroy({
+                where: { id: productId }
+            });
+
+            res.redirect('/products');
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al eliminar el producto');
+        }
+    },
+
+    search: async (req, res) => {
+        try {
+            const searchTerm = req.query.q;
+            
+            const products = await Product.findAll({
+                where: {
+                    name: {
+                        [Op.like]: `%${searchTerm}%`
+                    }
+                },
+                include: [
+                    { association: 'category' },
+                    { association: 'colors' }
+                ]
+            });
+
+            res.render('products/productList', { 
+                title: 'Búsqueda - Botánica.com',
+                stylesheet: 'products',
+                products: products
+            });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error en la búsqueda');
+        }
     }
 };
 

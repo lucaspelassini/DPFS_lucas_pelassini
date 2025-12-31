@@ -13,11 +13,7 @@
 
         <div class="profile-card">
             <div class="profile-image">
-    <% if (user.image === 'default-avatar.jpg') { %>
-        <img src="https://ui-avatars.com/api/?name=<%= user.firstName %>+<%= user.lastName %>&size=150&background=6b9080&color=fff" alt="<%= user.firstName %>">
-    <% } else { %>
-        <img src="/img/users/<%= user.image %>" alt="<%= user.firstName %>">
-    <% } %>
+                <img src="/img/users/<%= user.image %>" alt="<%= user.firstName %>">
             </div>
 
             <div class="profile-info">
@@ -25,7 +21,10 @@
                 <p class="email"><%= user.email %></p>
                 <p class="category">Tipo de cuenta: <%= user.category %></p>
 
-                <a href="/users/logout" class="btn-main">Cerrar Sesión</a>
+                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                    <a href="/users/<%= user.id %>/edit" class="btn-secondary">Editar Perfil</a>
+                    <a href="/users/logout" class="btn-main">Cerrar Sesión</a>
+                </div>
             </div>
         </div>
     </div>

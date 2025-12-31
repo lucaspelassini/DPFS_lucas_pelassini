@@ -7,7 +7,7 @@ const { isAuthenticated } = require('../middlewares/authMiddleware');
 router.get('/', productsController.list);
 
 router.get('/cart', productsController.cart);
-
+router.get('/search', productsController.search);
 router.get('/create', isAuthenticated, productsController.create);
 router.post('/', isAuthenticated, upload.single('image'), productsController.store);
 

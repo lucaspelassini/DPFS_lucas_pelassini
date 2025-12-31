@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "Australia462",
+    "database": "botanica_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "Australia462",
+    "database": "botanica_db_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "Australia462",
+    "database": "botanica_db_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

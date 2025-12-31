@@ -30,21 +30,26 @@
                 <small>Para cambiar la imagen, deberás eliminar y crear de nuevo el producto</small>
             </div>
 
-            <div class="form-group">
-                <label for="category">Categoría *</label>
-                <select id="category" name="category" required>
-                    <option value="">Seleccionar categoría</option>
-                    <option value="plantas" <%= product.category === 'plantas' ? 'selected' : '' %>>Plantas</option>
-                    <option value="macetas" <%= product.category === 'macetas' ? 'selected' : '' %>>Macetas</option>
-                    <option value="herramientas" <%= product.category === 'herramientas' ? 'selected' : '' %>>Herramientas</option>
-                    <option value="fertilizantes" <%= product.category === 'fertilizantes' ? 'selected' : '' %>>Fertilizantes</option>
-                    <option value="semillas" <%= product.category === 'semillas' ? 'selected' : '' %>>Semillas</option>
-                </select>
-            </div>
+          <div class="form-group">
+    <label for="category">Categoría *</label>
+    <select id="category" name="category" required>
+        <option value="">Seleccionar categoría</option>
+        <% categories.forEach(cat => { %>
+            <option value="<%= cat.id %>" <%= product.categoryId === cat.id ? 'selected' : '' %>>
+                <%= cat.name %>
+            </option>
+        <% }); %>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="stock">Stock</label>
+    <input type="number" id="stock" name="stock" min="0" value="<%= product.stock %>">
+</div>
 
             <div class="form-group">
                 <label for="colors">Colores disponibles</label>
-                <input type="text" id="colors" name="colors" value="<%= product.colors ? product.colors.join(', ') : '' %>" placeholder="Ej: Verde, Rojo, Amarillo">
+                <input type="text" id="colors" name="colors" value="<%= product.colors ? product.colors.map(c => c.color).join(', ') : '' %>">
             </div>
 
             <div class="form-group">

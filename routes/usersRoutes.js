@@ -14,4 +14,9 @@ router.post('/register', uploadUsers.single('image'), usersController.processReg
 
 router.get('/logout', isAuthenticated, usersController.logout);
 
+router.get('/:id/edit', isAuthenticated, usersController.edit);
+router.put('/:id', isAuthenticated, usersController.update);
+
+router.get('/:id', usersController.detail);
+
 module.exports = router;

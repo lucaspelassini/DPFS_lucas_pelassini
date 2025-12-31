@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<%- include('../partials/head', { title: user.firstName + ' ' + user.lastName + ' - Botánica.com', stylesheet: 'profile' }) %>
+
+<body>
+
+<%- include('../partials/header') %>
+
+<div class="container">
+    <div class="profile-container">
+        <h2>Perfil de Usuario</h2>
+
+        <div class="profile-card">
+            <div class="profile-image">
+                <img src="/img/users/<%= user.image %>" alt="<%= user.firstName %>">
+            </div>
+
+            <div class="profile-info">
+                <h3><%= user.firstName %> <%= user.lastName %></h3>
+                <p class="email"><%= user.email %></p>
+                <p class="category">Tipo de cuenta: <%= user.category %></p>
+
+                <% if (locals.isLogged && userLogged.id === user.id) { %>
+                    <a href="/users/<%= user.id %>/edit" class="btn-main">Editar Mi Perfil</a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>
+
+</body>
+</html>

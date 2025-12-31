@@ -8,27 +8,35 @@
 <%- include('../partials/header') %>
 
 <div class="container">
-    <h2 class="page-title">Nuestros Productos</h2>
-
-    <% if (locals.isLogged) { %>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+        <h2 class="page-title" style="margin: 0;">Nuestros Productos</h2>
+        
+        <% if (locals.isLogged) { %>
             <a href="/products/create" class="btn-main">Crear Producto</a>
         <% } %>
     </div>
 
-    <div class="products-grid">
-        <% products.forEach(product => { %>
-            <article class="product-card">
-                <div class="product-image">
-                    <img src="/img/<%= product.image %>" alt="<%= product.name %>">
-                </div>
-                <div class="product-info">
-                    <h3><%= product.name %></h3>
-                    <p class="price">$<%= product.price.toFixed(2) %></p>
-                    <a href="/products/<%= product.id %>" class="btn-main">Ver Detalle</a>
-                </div>
-            </article>
-        <% }); %>
-    </div>
+    <% if (products.length > 0) { %>
+        <div class="products-grid">
+            <% products.forEach(product => { %>
+                <article class="product-card">
+                    <div class="product-image">
+                        <img src="/img/<%= product.image %>" alt="<%= product.name %>">
+                    </div>
+                    <div class="product-info">
+                        <h3><%= product.name %></h3>
+                        <p class="price">$<%= parseFloat(product.price).toFixed(2) %></p>
+                        <a href="/products/<%= product.id %>" class="btn-main">Ver Detalle</a>
+                    </div>
+                </article>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <div style="text-align: center; padding: 60px 20px;">
+            <h3 style="color: #666; margin-bottom: 20px;">No se encontraron productos</h3>
+            <a href="/products" class="btn-main">Ver todos los productos</a>
+        </div>
+    <% } %>
 </div>
 
 <%- include('../partials/footer') %>

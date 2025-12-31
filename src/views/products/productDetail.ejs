@@ -18,7 +18,7 @@
 
         <div class="detail-info">
             <h2><%= product.name %></h2>
-            <p class="price">$<%= product.price.toFixed(2) %></p>
+            <p class="price">$<%= parseFloat(product.price).toFixed(2) %></p>
 
             <h4>Descripción:</h4>
             <p class="description-text"><%= product.description %></p>
@@ -28,7 +28,7 @@
 
             <% if (product.colors && product.colors.length > 0) { %>
                 <h4>Colores disponibles:</h4>
-                <p><%= product.colors.join(', ') %></p>
+               <p><%= product.colors.map(c => c.color).join(', ') %></p>
             <% } %>
 
             <h4>Cantidad:</h4>

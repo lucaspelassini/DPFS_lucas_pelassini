@@ -1,18 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const { User } = require('../models');
 const bcrypt = require('bcryptjs');
-
-const usersFilePath = path.join(__dirname, '../data/users.json');
-
-const getUsers = () => {
-    const usersJSON = fs.readFileSync(usersFilePath, 'utf-8');
-    return JSON.parse(usersJSON);
-};
-
-const saveUsers = (users) => {
-    const usersJSON = JSON.stringify(users, null, 2);
-    fs.writeFileSync(usersFilePath, usersJSON);
-};
 
 const usersController = {
     login: (req, res) => {
@@ -22,34 +9,40 @@ const usersController = {
         });
     },
 
-    processLogin: (req, res) => {
-        const users = getUsers();
-        const { email, password, remember } = req.body;
+    processLogin: async (req, res) => {
+        try {
+            const { email, password, remember } = req.body;
 
-        const user = users.find(u => u.email === email);
+            const user = await User.findOne({
+                where: { email: email }
+            });
 
-        if (user) {
-            const validPassword = bcrypt.compareSync(password, user.password);
+            if (user) {
+                const validPassword = bcrypt.compareSync(password, user.password);
 
-            if (validPassword) {
-                req.session.userLogged = {
-                    id: user.id,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    email: user.email,
-                    category: user.category,
-                    image: user.image
-                };
+                if (validPassword) {
+                    req.session.userLogged = {
+                        id: user.id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                        category: user.category,
+                        image: user.image
+                    };
 
-                if (remember) {
-                    res.cookie('userEmail', email, { maxAge: 1000 * 60 * 60 * 24 * 30 }); // 30 días
+                    if (remember) {
+                        res.cookie('userEmail', email, { maxAge: 1000 * 60 * 60 * 24 * 30 }); // 30 días
+                    }
+
+                    return res.redirect('/users/profile');
                 }
-
-                return res.redirect('/users/profile');
             }
-        }
 
-        return res.redirect('/users/login');
+            return res.redirect('/users/login');
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al procesar el login');
+        }
     },
 
     profile: (req, res) => {
@@ -67,30 +60,89 @@ const usersController = {
         });
     },
 
-    processRegister: (req, res) => {
-        const users = getUsers();
+    processRegister: async (req, res) => {
+        try {
+            const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
-        const newId = users.length > 0 
-            ? Math.max(...users.map(u => u.id)) + 1 
-            : 1;
+            await User.create({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email,
+                password: hashedPassword,
+                category: 'user',
+                image: req.file ? req.file.filename : 'default-avatar.jpg'
+            });
 
-        const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+            res.redirect('/users/login');
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al crear el usuario');
+        }
+    },
 
-        const newUser = {
-            id: newId,
+    edit: async (req, res) => {
+        try {
+            const userId = req.params.id;
+            const user = await User.findByPk(userId);
+
+            if (user) {
+                res.render('users/userEdit', {
+                    title: 'Editar Usuario - Botánica.com',
+                    stylesheet: 'forms',
+                    user: user
+                });
+            } else {
+                res.status(404).send('Usuario no encontrado');
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al cargar el usuario');
+        }
+    },
+
+update: async (req, res) => {
+    try {
+        const userId = req.params.id;
+
+        await User.update({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            email: req.body.email,
-            password: hashedPassword,
-            category: 'user',
-            image: req.file ? req.file.filename : 'default-avatar.jpg'
-        };
+            email: req.body.email
+        }, {
+            where: { id: userId }
+        });
 
-        users.push(newUser);
+        if (req.session.userLogged && req.session.userLogged.id == userId) {
+            req.session.userLogged.firstName = req.body.firstName;
+            req.session.userLogged.lastName = req.body.lastName;
+            req.session.userLogged.email = req.body.email;
+        }
 
-        saveUsers(users);
+        res.redirect('/users/profile');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al actualizar el usuario');
+    }
+},
 
-        res.redirect('/users/login');
+    detail: async (req, res) => {
+        try {
+            const userId = req.params.id;
+            const user = await User.findByPk(userId);
+
+            if (user) {
+                res.render('users/userDetail', {
+                    title: 'Detalle Usuario - Botánica.com',
+                    stylesheet: 'profile',
+                    user: user
+                });
+            } else {
+                res.status(404).send('Usuario no encontrado');
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al obtener el usuario');
+        }
     },
 
     logout: (req, res) => {
@@ -101,3 +153,4 @@ const usersController = {
 };
 
 module.exports = usersController;
+
