@@ -13,34 +13,44 @@
         <p class="form-subtitle">Actualiza tus datos personales</p>
 
         <form action="/users/<%= user.id %>?_method=PUT" method="POST">
-            
-            <div class="form-group">
-                <label for="firstName">Nombre *</label>
-                <input type="text" id="firstName" name="firstName" value="<%= user.firstName %>" required>
-            </div>
+    
+    <div class="form-group">
+        <label for="firstName">Nombre *</label>
+        <input type="text" id="firstName" name="firstName" value="<%= locals.old ? old.firstName : user.firstName %>" required>
+        <% if (locals.errors && errors.firstName) { %>
+            <small class="error-msg"><%= errors.firstName.msg %></small>
+        <% } %>
+    </div>
 
-            <div class="form-group">
-                <label for="lastName">Apellido *</label>
-                <input type="text" id="lastName" name="lastName" value="<%= user.lastName %>" required>
-            </div>
+    <div class="form-group">
+        <label for="lastName">Apellido *</label>
+        <input type="text" id="lastName" name="lastName" value="<%= locals.old ? old.lastName : user.lastName %>" required>
+        <% if (locals.errors && errors.lastName) { %>
+            <small class="error-msg"><%= errors.lastName.msg %></small>
+        <% } %>
+    </div>
 
-            <div class="form-group">
-                <label for="email">Correo Electrónico *</label>
-                <input type="email" id="email" name="email" value="<%= user.email %>" required>
-            </div>
+    <div class="form-group">
+        <label for="email">Correo Electrónico *</label>
+        <input type="email" id="email" name="email" value="<%= locals.old ? old.email : user.email %>" required>
+        <% if (locals.errors && errors.email) { %>
+            <small class="error-msg"><%= errors.email.msg %></small>
+        <% } %>
+    </div>
 
-            <div class="form-group">
-                <label>Imagen Actual:</label>
-                <div style="display: flex; align-items: center; gap: 15px; margin-top: 10px;">
-                    <img src="/img/users/<%= user.image %>" alt="Avatar" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #6b9080;">
-                    <small>Para cambiar la imagen, contacta al administrador</small>
-                </div>
-            </div>
+    <div class="form-group">
+        <label>Imagen Actual:</label>
+        <div style="display: flex; align-items: center; gap: 15px; margin-top: 10px;">
+            <img src="/img/users/<%= user.image %>" alt="Avatar" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #6b9080;">
+            <small>Para cambiar la imagen, contacta al administrador</small>
+        </div>
+    </div>
 
-            <div class="form-buttons">
-                <button type="submit" class="btn-main">Guardar Cambios</button>
-                <a href="/users/profile" class="btn-secondary">Cancelar</a>
-            </div>
+    <div class="form-buttons">
+        <button type="submit" class="btn-main">Guardar Cambios</button>
+        <a href="/users/profile" class="btn-secondary">Cancelar</a>
+    </div>
+</form>
         </form>
     </div>
 </div>

@@ -1,5 +1,6 @@
 const { User } = require('../models');
 const bcrypt = require('bcryptjs');
+const { validationResult } = require('express-validator');
 
 const usersController = {
     login: (req, res) => {
@@ -10,40 +11,59 @@ const usersController = {
     },
 
     processLogin: async (req, res) => {
-        try {
-            const { email, password, remember } = req.body;
+    const errors = validationResult(req);
+    
+    if (!errors.isEmpty()) {
+        return res.render('users/login', {
+            title: 'Login - Botánica.com',
+            stylesheet: 'login',
+            errors: errors.mapped(),
+            old: req.body
+        });
+    }
 
-            const user = await User.findOne({
-                where: { email: email }
-            });
+    try {
+        const { email, password, remember } = req.body;
 
-            if (user) {
-                const validPassword = bcrypt.compareSync(password, user.password);
+        const user = await User.findOne({
+            where: { email: email }
+        });
 
-                if (validPassword) {
-                    req.session.userLogged = {
-                        id: user.id,
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        email: user.email,
-                        category: user.category,
-                        image: user.image
-                    };
+        if (user) {
+            const validPassword = bcrypt.compareSync(password, user.password);
 
-                    if (remember) {
-                        res.cookie('userEmail', email, { maxAge: 1000 * 60 * 60 * 24 * 30 }); // 30 días
-                    }
+            if (validPassword) {
+                req.session.userLogged = {
+                    id: user.id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    category: user.category,
+                    image: user.image
+                };
 
-                    return res.redirect('/users/profile');
+                if (remember) {
+                    res.cookie('userEmail', email, { maxAge: 1000 * 60 * 60 * 24 * 30 });
                 }
-            }
 
-            return res.redirect('/users/login');
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Error al procesar el login');
+                return res.redirect('/users/profile');
+            }
         }
-    },
+
+        return res.render('users/login', {
+            title: 'Login - Botánica.com',
+            stylesheet: 'login',
+            errors: {
+                email: { msg: 'Credenciales inválidas' }
+            },
+            old: req.body
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al procesar el login');
+    }
+},
+
 
     profile: (req, res) => {
         res.render('users/profile', {
@@ -61,24 +81,36 @@ const usersController = {
     },
 
     processRegister: async (req, res) => {
-        try {
-            const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+    const errors = validationResult(req);
+    
+    if (!errors.isEmpty()) {
+        return res.render('users/register', {
+            title: 'Registro - Botánica.com',
+            stylesheet: 'register',
+            errors: errors.mapped(),
+            old: req.body
+        });
+    }
 
-            await User.create({
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                email: req.body.email,
-                password: hashedPassword,
-                category: 'user',
-                image: req.file ? req.file.filename : 'default-avatar.jpg'
-            });
+    try {
+        const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
-            res.redirect('/users/login');
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Error al crear el usuario');
-        }
-    },
+        await User.create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: hashedPassword,
+            category: 'user',
+            image: req.file ? req.file.filename : 'default-avatar.jpg'
+        });
+
+        res.redirect('/users/login');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al crear el usuario');
+    }
+},
+
 
     edit: async (req, res) => {
         try {
@@ -101,6 +133,21 @@ const usersController = {
     },
 
 update: async (req, res) => {
+    const errors = validationResult(req);
+    
+    if (!errors.isEmpty()) {
+        const user = await User.findByPk(req.params.id);
+        const categories = await Category.findAll();
+        
+        return res.render('users/userEdit', {
+            title: 'Editar Usuario - Botánica.com',
+            stylesheet: 'forms',
+            user: user,
+            errors: errors.mapped(),
+            old: req.body
+        });
+    }
+
     try {
         const userId = req.params.id;
 

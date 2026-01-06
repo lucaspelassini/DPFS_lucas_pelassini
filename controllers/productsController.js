@@ -1,5 +1,6 @@
 const { Product, Category, ProductColor } = require('../models');
 const { Op } = require('sequelize');
+const { validationResult } = require('express-validator');
 
 const productsController = {
     list: async (req, res) => {
@@ -69,34 +70,48 @@ const productsController = {
         }
     },
 
-    store: async (req, res) => {
-        try {
-            const newProduct = await Product.create({
-                name: req.body.name,
-                description: req.body.description,
-                price: parseFloat(req.body.price),
-                categoryId: parseInt(req.body.category),
-                image: req.file ? req.file.filename : 'default-product.jpg',
-                stock: parseInt(req.body.stock) || 0
-            });
+store: async (req, res) => {
+    const errors = validationResult(req);
+    
+    if (!errors.isEmpty()) {
+        const categories = await Category.findAll();
+        
+        return res.render('products/productCreate', {
+            title: 'Crear Producto - Botánica.com',
+            stylesheet: 'forms',
+            categories: categories,
+            errors: errors.mapped(),
+            old: req.body
+        });
+    }
 
-            if (req.body.colors) {
-                const colorsArray = req.body.colors.split(',').map(c => c.trim());
-                
-                for (const color of colorsArray) {
-                    await ProductColor.create({
-                        productId: newProduct.id,
-                        color: color
-                    });
-                }
+    try {
+        const newProduct = await Product.create({
+            name: req.body.name,
+            description: req.body.description,
+            price: parseFloat(req.body.price),
+            categoryId: parseInt(req.body.category),
+            image: req.file ? req.file.filename : 'default-product.jpg',
+            stock: parseInt(req.body.stock) || 0
+        });
+
+        if (req.body.colors) {
+            const colorsArray = req.body.colors.split(',').map(c => c.trim());
+            
+            for (const color of colorsArray) {
+                await ProductColor.create({
+                    productId: newProduct.id,
+                    color: color
+                });
             }
-
-            res.redirect('/products');
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Error al crear el producto');
         }
-    },
+
+        res.redirect('/products');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al crear el producto');
+    }
+},
 
     edit: async (req, res) => {
         try {
@@ -125,42 +140,64 @@ const productsController = {
             res.status(500).send('Error al cargar el producto');
         }
     },
+    
+update: async (req, res) => {
+    const errors = validationResult(req);
+    
+    if (!errors.isEmpty()) {
+        const productId = req.params.id;
+        const product = await Product.findByPk(productId, {
+            include: [
+                { association: 'category' },
+                { association: 'colors' }
+            ]
+        });
+        const categories = await Category.findAll();
+        
+        return res.render('products/productEdit', {
+            title: 'Editar Producto - Botánica.com',
+            stylesheet: 'forms',
+            product: product,
+            categories: categories,
+            errors: errors.mapped(),
+            old: req.body
+        });
+    }
 
-    update: async (req, res) => {
-        try {
-            const productId = req.params.id;
-            
-            await Product.update({
-                name: req.body.name,
-                description: req.body.description,
-                price: parseFloat(req.body.price),
-                categoryId: parseInt(req.body.category),
-                stock: parseInt(req.body.stock) || 0
-            }, {
-                where: { id: productId }
+    try {
+        const productId = req.params.id;
+        
+        await Product.update({
+            name: req.body.name,
+            description: req.body.description,
+            price: parseFloat(req.body.price),
+            categoryId: parseInt(req.body.category),
+            stock: parseInt(req.body.stock) || 0
+        }, {
+            where: { id: productId }
+        });
+
+        if (req.body.colors) {
+            await ProductColor.destroy({
+                where: { productId: productId }
             });
 
-            if (req.body.colors) {
-                await ProductColor.destroy({
-                    where: { productId: productId }
+            const colorsArray = req.body.colors.split(',').map(c => c.trim());
+            
+            for (const color of colorsArray) {
+                await ProductColor.create({
+                    productId: productId,
+                    color: color
                 });
-
-                const colorsArray = req.body.colors.split(',').map(c => c.trim());
-                
-                for (const color of colorsArray) {
-                    await ProductColor.create({
-                        productId: productId,
-                        color: color
-                    });
-                }
             }
-
-            res.redirect('/products/' + productId);
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Error al actualizar el producto');
         }
-    },
+
+        res.redirect('/products/' + productId);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al actualizar el producto');
+    }
+},
 
     destroy: async (req, res) => {
         try {
