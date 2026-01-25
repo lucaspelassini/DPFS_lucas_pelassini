@@ -3,9 +3,15 @@ const path = require('path');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const userLoggedMiddleware = require('./middlewares/userLoggedMiddleware');
 const app = express();
 
+app.use(cors({
+    origin: 'http://localhost:3001',
+    credentials: true
+    }));
+    
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
@@ -29,9 +35,17 @@ const mainRoutes = require('./routes/mainRoutes');
 const productsRoutes = require('./routes/productsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 
+const usersApiRoutes = require('./routes/api/usersApiRoutes');
+const productsApiRoutes = require('./routes/api/productsApiRoutes');
+const categoriesApiRoutes = require('./routes/api/categoriesApiRoutes');
+
 app.use('/', mainRoutes);
 app.use('/products', productsRoutes);
 app.use('/users', usersRoutes);
+
+app.use('/api/users', usersApiRoutes);
+app.use('/api/products', productsApiRoutes);
+app.use('/api/categories', categoriesApiRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => {

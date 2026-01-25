@@ -76,12 +76,17 @@
             </div>
 
             <button class="btn-main">Proceder al pago</button>
-            <a class="btn-secondary" href="./login.html">Iniciar Sesión</a>
+            <% if (!locals.isLogged) { %>
+    <a class="btn-secondary" href="/users/login">Iniciar Sesión</a>
+<% } %>
         </aside>
     </div>
 </div>
 
 <%- include('../partials/footer') %>
+
+<script src="/js/cart.js"></script>
+<script src="/js/cartPage.js"></script>
 
 </body>
 </html>
